@@ -1,6 +1,9 @@
 import React from 'react';
 import logo from './logo.svg';
 import axios from 'axios';
+import MyVerticallyCenteredModal from './modals/modal.js';
+import { Col, Row, Container } from 'react-bootstrap';
+import Map from './assets/map.jpg';
 
 class App extends React.Component {
 
@@ -21,13 +24,13 @@ class App extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <p style={{
-              fontFamily: 'courier new',
-              fontSize: 13,
-              marginLeft: 10,
-              color: '#777',
-            }}>#blacklivesmatter</p>
-        <div className="App" style={{ marginTop: '6%' }}>
+     <div className="App">
+
+     <Row style={{width: '90%'}}>
+            <Col className="mt-2 ml-3" style={{width: '10%'}}> 
+            <MyVerticallyCenteredModal />
+            </Col>
+          </Row>
           <p
             style={{
               textAlign: 'center',
@@ -78,6 +81,7 @@ class App extends React.Component {
               fontFamily: 'courier new'
             }}>
             {this.state.covidDataNepal.deaths}</p>
+
         </div>
       </React.Fragment>
     );
