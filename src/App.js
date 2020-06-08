@@ -1,26 +1,67 @@
 import React from 'react';
 import logo from './logo.svg';
-import './App.css';
+import axios from 'axios';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+class App extends React.Component {
+
+  state={
+    covidDataWorld:[],
+    covidDataNepal: []
+  }
+
+  componentDidMount(){
+    axios.get('https://covid19.mohp.gov.np/covid/api/confirmedcases')
+    .then(response => {
+      this.setState({
+        covidDataWorld: response.data.global,
+        covidDataNepal: response.data.nepal
+      })
+      }).catch(err => console.log(err));
+  }
+  render(){
+    return (
+      <div className="App" style={{marginTop: '6%'}}>
+      <p 
+      style={{textAlign: 'center', 
+      fontFamily: 'courier new', 
+      color: '#777',
+      fontWeight: 'bold'}}>
+        Total Confirmed Cases</p>
+      <p 
+      style={{textAlign: 'center', 
+      fontSize: 175,
+      margin: 0,
+      fontFamily: 'courier new'}}>
+        {this.state.covidDataNepal.positive}</p>
+
+      <p 
+      style={{textAlign: 'center', 
+      color: '#777',
+      fontWeight: 'bold',
+      fontFamily: 'courier new'}}>
+        Total Recovered Cases</p>
+      <p 
+      style={{textAlign: 'center',  
+      fontSize: 175,
+      margin: 0,
+      fontFamily: 'courier new'}}>
+        {this.state.covidDataNepal.extra1}</p>
+
+      <p 
+      style={{textAlign: 'center', 
+      color: '#777',
+      fontWeight: 'bold',
+      fontFamily: 'courier new'}}>
+        Total Death Cases</p>
+      <p 
+      style={{textAlign: 'center',
+      fontSize: 175,
+      margin: 0, 
+      fontFamily: 'courier new'}}>
+        {this.state.covidDataNepal.deaths}</p>
+      </div>
   );
+    }
 }
 
 export default App;
